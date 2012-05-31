@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- 
+	节点
+	export 导出信息描述的开始
+	属性
+	id 唯一标志
+	sqlId 与ibatis的sql配置文件里的该功能SQLID对应
+	filename 为导出文件的名称
+	
+	节点
+	description 说明
+	节点
+	column 列信息
+	属性
+	name 为要导出的字段
+	值 导出字段的中文名称，即为导出文件的列头
+-->
+<exports>	
+	<export id="uploadExcelImport" sqlId="UploadExcel.insertUploadExcel" filename="uploadExcelExport">
+		<description>Excel导入</description>
+		<title>Excel导出</title>
+		<column name="pno">序号</column>
+		<column name="pmailno">ems单号</column>
+		<column name="pstorageno">库位号</column>	
+	    <column name="pproductno">货号</column>
+	    <column name="pcolour">颜色</column>
+		<column name="psize">尺码</column>
+		<column name="pnumber">数量</column>
+		<column name="precname">姓名</column>		
+		<column name="precprovince">省</column>
+	    <column name="preccity">市</column>
+	    <column name="preccounty">县区</column>
+		<column name="pstree">街道</column>
+		<column name="prectel">联系电话</column>
+		<column name="pchannel">渠道</column>		
+		<column name="premark">备注</column>	
+	</export>
+</exports>

@@ -1,0 +1,15 @@
+<!DOCTYPE xwork PUBLIC "-//OpenSymphony Group//XWork 1.0//EN" "http://www.opensymphony.com/xwork/xwork-1.0.dtd">
+<xwork>
+	<package name="main" extends="appsystem" namespace="/">
+		<!-- 主框架 -->
+		<action name="main" class="mainAction">
+		    <!-- 登录页 -->
+			<result name="viewlogin">/login.jsp</result>
+			<!-- 主页 -->
+			<result name="viewmain">/index.jsp</result>
+			<result name="success">/index.jsp</result>
+			<!-- 拦截器处理search封装-->
+			<interceptor-ref name="mapParam" />
+		</action> 
+	</package> 
+</xwork>

@@ -1,0 +1,18 @@
+<!DOCTYPE xwork PUBLIC "-//OpenSymphony Group//XWork 1.0//EN" "http://www.opensymphony.com/xwork/xwork-1.0.dtd">
+<!-- 
+	管理所有xwork均配置在此文件中统一管理
+-->
+<xwork> 
+	<package name="appsystem" extends="default" namespace="/appsystem">  </package>
+	<include file="/com/qzgf/application/appsystem/department/action/xwork-department.xml" /><!-- 机构管理模块 -->
+		
+	<include file="/com/qzgf/application/appsystem/log/action/xwork-log.xml" /><!-- 日志管理模块 -->
+		
+	<include file="/com/qzgf/application/appsystem/main/action/xwork-main.xml" /><!-- 首页框架模块 -->
+	
+	<include file="/com/qzgf/application/appsystem/menu/action/xwork-menu.xml" /><!-- 菜单管理模块 -->
+ 
+ 	<include file="/com/qzgf/application/appsystem/role/action/xwork-role.xml" /><!-- 角色管理模块 -->
+ 
+ 	<include file="/com/qzgf/application/appsystem/user/action/xwork-user.xml" /><!-- 用户管理模块 -->
+</xwork>

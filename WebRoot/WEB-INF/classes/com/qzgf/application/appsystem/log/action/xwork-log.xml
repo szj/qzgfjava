@@ -1,0 +1,14 @@
+<!DOCTYPE xwork PUBLIC "-//OpenSymphony Group//XWork 1.0//EN" "http://www.opensymphony.com/xwork/xwork-1.0.dtd">
+<xwork>
+	<package name="log" extends="appsystem" namespace="/appsystem">
+	    <!-- 部门信息 -->
+		<action name="log" class="logAction">
+			<result name="input">/login.jsp</result>
+			<result name="success">/WEB-INF/page/appsystem/log/log.jsp</result>
+			<result name="list">/WEB-INF/page/appsystem/log/log.jsp</result>
+			<result name="listdetail">/WEB-INF/page/appsystem/log/logdetail.jsp</result>
+			<!-- 拦截器处理search封装-->
+			<interceptor-ref name="mapParam" />			
+		</action>
+	</package> 
+</xwork>

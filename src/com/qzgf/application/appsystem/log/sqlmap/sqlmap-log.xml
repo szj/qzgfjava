@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="gbk"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="Log">
+    <!-- ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝查看＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝ -->
+	<!-- 用户信息列表-->
+    <select id="findLog" parameterClass="java.util.HashMap" resultClass="java.util.HashMap"  remapResults="true">
+       select * from tab_system_log main where 1=1
+            <isNotEmpty prepend=" and " property="pid">main.id='$pid$'</isNotEmpty>
+            <isNotEmpty prepend=" and " property="popercode">main.opercode='$popercode$'</isNotEmpty>
+            <isNotEmpty prepend=" and " property="pcontrollerscode">main.controllerscode='$pcontrollerscode$'</isNotEmpty>
+            <isNotEmpty prepend=" and " property="puserid">main.userid='$puserid$'</isNotEmpty>
+            <isNotEmpty prepend=" and " property="poperdate">main.operdate='$poperdate$'</isNotEmpty>
+            <isNotEmpty prepend=" and " property="poperresult">main.operresult='$poperresult$'</isNotEmpty>
+            <isNotEmpty prepend=" and " property="poperip">main.operip='$poperip$'</isNotEmpty>
+       <isNotEmpty prepend=" and  " property="WHERE">
+	       $WHERE$ 
+	   </isNotEmpty>
+       <isNotEmpty prepend=" order by  " property="ORDERBY">
+	       $ORDERBY$ 
+	   </isNotEmpty>
+	   <isNotEmpty prepend=" " property="START">
+	         limit $START$ , $END$
+	   </isNotEmpty>
+	</select> 
+	<!-- 用户信息总数-->
+	<select id="findLogCount" parameterClass="java.util.HashMap" resultClass="java.lang.Integer" remapResults="true">
+       select count(*) from tab_system_log main where 1=1
+            <isNotEmpty prepend=" and " property="pid">main.id='$pid$'</isNotEmpty>
+            <isNotEmpty prepend=" and " property="popercode">main.opercode='$popercode$'</isNotEmpty>
+            <isNotEmpty prepend=" and " property="pcontrollerscode">main.controllerscode='$pcontrollerscode$'</isNotEmpty>
+            <isNotEmpty prepend=" and " property="puserid">main.userid='$puserid$'</isNotEmpty>
+            <isNotEmpty prepend=" and " property="poperdate">main.operdate='$poperdate$'</isNotEmpty>
+            <isNotEmpty prepend=" and " property="poperresult">main.operresult='$poperresult$'</isNotEmpty>
+            <isNotEmpty prepend=" and " property="poperip">main.operip='$poperip$'</isNotEmpty>
+            <isNotEmpty prepend=" and  " property="WHERE">
+		       $WHERE$ 
+		   </isNotEmpty>
+	</select> 
+	 <!-- ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝增加＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝ -->
+	 <insert id="insertLog"	parameterClass="java.util.HashMap" >
+		insert into tab_system_log
+				(id 
+		            <isNotEmpty prepend=" , " property="popercode">opercode</isNotEmpty>
+		            <isNotEmpty prepend=" , " property="pcontrollerscode">controllerscode</isNotEmpty>
+		            <isNotEmpty prepend=" , " property="puserid">userid</isNotEmpty> 
+		            <isNotEmpty prepend=" , " property="poperresult">operresult</isNotEmpty>
+		            <isNotEmpty prepend=" , " property="poperip">operip</isNotEmpty>
+				,operdate)
+				 values 
+				(
+				<isNotEmpty prepend=" " property="pid">'$pid$'</isNotEmpty>
+				<isEmpty prepend=" " property="pid">seqformat(@in_seq_name:='tab_system_log')	</isEmpty>
+		            <isNotEmpty prepend=" , " property="popercode">'$popercode$'</isNotEmpty>
+		            <isNotEmpty prepend=" , " property="pcontrollerscode">'$pcontrollerscode$'</isNotEmpty>
+		            <isNotEmpty prepend=" , " property="puserid">'$puserid$'</isNotEmpty> 
+		            <isNotEmpty prepend=" , " property="poperresult">'$poperresult$'</isNotEmpty>
+		            <isNotEmpty prepend=" , " property="poperip">'$poperip$'</isNotEmpty>
+		        ,now())	   		
+    </insert>
+	 
+	<!-- ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝删除＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
+		delete from tab_system_user where pid=#pid#这是真删，为了数据的完整性，业务模块用假删操作！
+	 -->
+	<delete id="deleteLog" parameterClass="java.util.HashMap">
+    	delete from  tab_system_log  where id='$pid$'
+    </delete>
+	<!-- ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝修改＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝ -->
+	<update id="updateLog" parameterClass="java.util.HashMap">
+		update tab_system_log main set main.id=main.id
+		            <isNotEmpty prepend=" , " property="pid">id=#pid#</isNotEmpty>
+		            <isNotEmpty prepend=" , " property="popercode">opercode=#popercode#</isNotEmpty>
+		            <isNotEmpty prepend=" , " property="pcontrollerscode">controllerscode=#pcontrollerscode#</isNotEmpty>
+		            <isNotEmpty prepend=" , " property="puserid">userid=#puserid#</isNotEmpty>
+		            <isNotEmpty prepend=" , " property="poperdate">operdate=#poperdate#</isNotEmpty>
+		            <isNotEmpty prepend=" , " property="poperresult">operresult=#poperresult#</isNotEmpty>
+		            <isNotEmpty prepend=" , " property="poperip">operip=#poperip#</isNotEmpty>
+		where id=#pid# and  
+	</update>
+	
+	<!-- ==============================其它扩展===================================== -->
+	<!-- 存储过程示例 -->
+	<procedure id="findLogByID" parameterClass="java.util.HashMap" resultClass="java.util.HashMap" remapResults="true">
+    	<![CDATA[{call pb_get_menu_tree(@userid1:='$userId$')}]]>
+    </procedure>
+</sqlMap>

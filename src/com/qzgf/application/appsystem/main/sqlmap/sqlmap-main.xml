@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="gbk"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="Main">
+    <!-- 用户菜单信息and father=#father#
+    0:删除,1:菜单.2自定义按钮,3系统按钮
+     -->
+    <select id="findMenu" parameterClass="java.util.HashMap" resultClass="java.util.HashMap" remapResults="true">
+        select * from Tab_System_Menu main where main.ismenu &lt;&gt; 0 
+        <isNotEmpty prepend=" and " property="pismenu">main.ismenu='$pismenu$'</isNotEmpty>
+        <isNotEmpty prepend=" and " property="pid">main.id='$pid$'</isNotEmpty>
+	</select>
+	
+	<!-- 用户信息-->
+    <select id="findUserbyName" parameterClass="java.util.HashMap" resultClass="java.util.HashMap" remapResults="true">
+       select * from tab_system_user main where main.state  &lt;&gt; 0 
+       <isNotEmpty prepend=" and " property="pusername">main.username='$pusername$'</isNotEmpty>
+	</select>
+		<!-- ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝修改＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝ -->
+	<update id="updateUserPwd" parameterClass="java.util.HashMap">
+		update tab_system_user main set main.id=main.id 
+		            <isNotEmpty prepend=" , " property="ppassword">password=#ppassword#</isNotEmpty>
+		where id=#pid# and main.state &lt;&gt; 0 
+	</update>
+	<!-- ===================用户收藏夹begin========================================== -->
+	<select id="findFavoritebyName" parameterClass="java.util.HashMap" resultClass="java.util.HashMap" remapResults="true">
+       select * from Tab_System_Favorite main 
+       <isNotEmpty prepend="  where " property="puserid">main.userid='$puserid$'</isNotEmpty>
+	</select>
+	
+	<insert id="insertFavorite"	parameterClass="java.util.HashMap" >
+		insert into Tab_System_Favorite
+				(id 
+		            <isNotEmpty prepend=" , " property="puserid">userid</isNotEmpty>
+		            <isNotEmpty prepend=" , " property="pmenuid">menuid</isNotEmpty>
+		            <isNotEmpty prepend=" , " property="pmenuname">menuname</isNotEmpty>
+		            <isNotEmpty prepend=" , " property="premark">remark</isNotEmpty>
+		            <isNotEmpty prepend=" , " property="purl">url</isNotEmpty>
+		            <isNotEmpty prepend=" , " property="picon">icon</isNotEmpty>
+				,createtime)
+				 values 
+				(
+				<isNotEmpty prepend=" " property="pid">'$pid$'</isNotEmpty>
+				<isEmpty prepend=" " property="pid">seqformat(@in_seq_name:='tab_system_favorite')	</isEmpty>
+		            <isNotEmpty prepend=" , " property="puserid">'$puserid$'</isNotEmpty>
+		            <isNotEmpty prepend=" , " property="pmenuid">'$pmenuid$'</isNotEmpty>
+		            <isNotEmpty prepend=" , " property="pmenuname">'$pmenuname$'</isNotEmpty>
+		            <isNotEmpty prepend=" , " property="premark">'$premark$'</isNotEmpty>
+		            <isNotEmpty prepend=" , " property="purl">'$purl$'</isNotEmpty>
+		            <isNotEmpty prepend=" , " property="picon">'$picon$'</isNotEmpty>
+		        ,now())	   		   		
+    </insert>
+    
+    <delete id="deleteFavorite" parameterClass="java.util.HashMap">
+    	delete from Tab_System_Favorite 
+    	where id=#pid#
+    </delete>
+	<!-- ===================用户收藏夹end==========================================-->
+	
+	
+	
+	<!-- ===================暂时无用作为参考=================== -->
+	<!-- 存储过程示例 -->
+	<procedure id="findMenuByUserID" parameterClass="java.util.HashMap" resultClass="java.util.HashMap" remapResults="true">
+    	<![CDATA[{call pb_get_menu_tree(@userid1:='$userId$')}]]>
+    </procedure>
+</sqlMap>

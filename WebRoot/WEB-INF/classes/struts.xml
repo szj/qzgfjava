@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" "http://struts.apache.org/dtds/struts-2.0.dtd" >
+<struts>
+	<package name="default" extends="struts-default,jasperreports-default">
+		<interceptors>
+			<interceptor name="mapParameter" class="com.qzgf.core.interceptor.MapParametersInterceptor"/>
+			<interceptor name="userSession" class="com.qzgf.core.interceptor.UserSessionInterceptor"/>
+			<interceptor-stack name="mapParam">
+				<!-- 文件控件file -->
+				<interceptor-ref name="fileUpload" />
+				<!-- 处理search的处理 --> 
+				<interceptor-ref name="mapParameter" />
+				<!-- 处理用户session的处理 --> 
+				<interceptor-ref name="userSession">      
+				        <param name="excludeMethods">Login</param>
+				        <!--对myExecute进行拦截，对execute不拦截  includeMethods excludeMethods-->
+				</interceptor-ref>
+			</interceptor-stack>
+		</interceptors>
+		
+		
+		<!-- 全局返回值信息 -->
+		<global-results>
+			<!-- 供给jquery的ajax返回值 -->
+			<result name="xml" type="freemarker">
+				<param name="location">/WEB-INF/format/xml.ftl</param>
+				<param name="contentType">application/xml</param>
+			</result>
+			<result name="json" type="freemarker">
+				<param name="location">/WEB-INF/format/json.ftl</param>
+				<param name="contentType">application/json</param>
+			</result>
+			<!-- 用户拦截，异常提示。 -->
+			<result name="intercepthmsg">/WEB-INF/format/intercepthmsg.jsp</result>
+		</global-results>
+	</package>
+	<!-- 加载各模块的包 -->
+	<!-- ====================================系统管理=========================================== -->	
+	<include file="/com/qzgf/application/appsystem/xwork-appsystem.xml"/>
+	<!-- ====================================其他业务模块=========================================== -->	
+</struts>

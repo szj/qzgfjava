@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd">
+
+	<!-- =============================系统管理========================================= -->
+	<!-- 首页 -->
+	<bean id="mainAction" class="com.qzgf.application.appsystem.main.action.MainAction"	scope="prototype" autowire="byName" />
+	<!-- 机构 -->
+	<bean id="departmentAction" class="com.qzgf.application.appsystem.department.action.DepartmentAction"	scope="prototype" autowire="byName" />
+	<!-- 日志 -->
+	<bean id="logAction" class="com.qzgf.application.appsystem.log.action.LogAction"	scope="prototype" autowire="byName" />
+	<!-- 菜单 -->
+	<bean id="menuAction" class="com.qzgf.application.appsystem.menu.action.MenuAction"	scope="prototype" autowire="byName" />
+	<!-- 角色 -->
+	<bean id="roleAction" class="com.qzgf.application.appsystem.role.action.RoleAction"	scope="prototype" autowire="byName" />
+	<!-- 用户 -->
+	<bean id="userAction" class="com.qzgf.application.appsystem.user.action.UserAction"	scope="prototype" autowire="byName" />
+	<!-- =============================其他模块========================================= -->
+</beans>

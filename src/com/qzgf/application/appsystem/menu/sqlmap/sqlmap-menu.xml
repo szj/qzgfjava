@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="gbk"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="Menu">
+	    <!-- ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝查看＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝ -->
+	<!-- 用户信息列表-->
+    <select id="findMenu" parameterClass="java.util.HashMap" resultClass="java.util.HashMap"  remapResults="true">
+       select * from tab_system_menu main where 1=1
+            <isNotEmpty prepend=" and " property="pid">main.id='$pid$'</isNotEmpty>
+            <isNotEmpty prepend=" and " property="pname">main.name='$pname$'</isNotEmpty>
+            <isNotEmpty prepend=" and " property="picon">main.icon='$picon$'</isNotEmpty>
+            <isNotEmpty prepend=" and " property="purl">main.url='$purl$'</isNotEmpty>
+            <isNotEmpty prepend=" and " property="porderno">main.orderno='$porderno$'</isNotEmpty>
+            <isNotEmpty prepend=" and " property="pfather">main.father='$pfather$'</isNotEmpty>
+            <isNotEmpty prepend=" and " property="pismenu">main.ismenu='$pismenu$'</isNotEmpty>
+            <isNotEmpty prepend=" and " property="ppermissionsflag">main.permissionsflag='$ppermissionsflag$'</isNotEmpty>
+       <isNotEmpty prepend=" and  " property="WHERE">
+	       $WHERE$ 
+	   </isNotEmpty>
+       <isNotEmpty prepend=" order by  " property="ORDERBY">
+	       $ORDERBY$ 
+	   </isNotEmpty>
+	   <isNotEmpty prepend=" " property="START">
+	         limit $START$ , $END$
+	   </isNotEmpty>
+	</select> 
+	<!-- 用户信息总数-->
+	<select id="findMenuCount" parameterClass="java.util.HashMap" resultClass="java.lang.Integer" remapResults="true">
+       select count(*) from tab_system_menu main where 1=1
+            <isNotEmpty prepend=" and " property="pid">main.id='$pid$'</isNotEmpty>
+            <isNotEmpty prepend=" and " property="pname">main.name='$pname$'</isNotEmpty>
+            <isNotEmpty prepend=" and " property="picon">main.icon='$picon$'</isNotEmpty>
+            <isNotEmpty prepend=" and " property="purl">main.url='$purl$'</isNotEmpty>
+            <isNotEmpty prepend=" and " property="porderno">main.orderno='$porderno$'</isNotEmpty>
+            <isNotEmpty prepend=" and " property="pfather">main.father='$pfather$'</isNotEmpty>
+            <isNotEmpty prepend=" and " property="pismenu">main.ismenu='$pismenu$'</isNotEmpty>
+            <isNotEmpty prepend=" and " property="ppermissionsflag">main.permissionsflag='$ppermissionsflag$'</isNotEmpty>
+            <isNotEmpty prepend=" and  " property="WHERE">
+		       $WHERE$ 
+		   </isNotEmpty>
+	</select> 
+	 <!-- ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝增加＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝ -->
+	 <insert id="insertMenu"	parameterClass="java.util.HashMap" >
+		insert into tab_system_menu
+				(id
+		            <isNotEmpty prepend=" , " property="pid">id</isNotEmpty>
+		            <isNotEmpty prepend=" , " property="pname">name</isNotEmpty>
+		            <isNotEmpty prepend=" , " property="picon">icon</isNotEmpty>
+		            <isNotEmpty prepend=" , " property="purl">url</isNotEmpty>
+		            <isNotEmpty prepend=" , " property="porderno">orderno</isNotEmpty>
+		            <isNotEmpty prepend=" , " property="pfather">father</isNotEmpty>
+		            <isNotEmpty prepend=" , " property="pismenu">ismenu</isNotEmpty>
+		            <isNotEmpty prepend=" , " property="ppermissionsflag">permissionsflag</isNotEmpty>
+				)
+				 values 
+				(
+				<isNotEmpty prepend=" " property="pid">'$pid$'</isNotEmpty>
+				<isEmpty prepend=" " property="pid">seqformat(@in_seq_name:='tab_system_menu')	</isEmpty>
+		            <isNotEmpty prepend=" , " property="pid">'$pid$'</isNotEmpty>
+		            <isNotEmpty prepend=" , " property="pname">'$pname$'</isNotEmpty>
+		            <isNotEmpty prepend=" , " property="picon">'$picon$'</isNotEmpty>
+		            <isNotEmpty prepend=" , " property="purl">'$purl$'</isNotEmpty>
+		            <isNotEmpty prepend=" , " property="porderno">'$porderno$'</isNotEmpty>
+		            <isNotEmpty prepend=" , " property="pfather">'$pfather$'</isNotEmpty>
+		            <isNotEmpty prepend=" , " property="pismenu">'$pismenu$'</isNotEmpty>
+		            <isNotEmpty prepend=" , " property="ppermissionsflag">'$ppermissionsflag$'</isNotEmpty>
+		        )	   		
+    </insert>
+	 
+	<!-- ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝删除＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
+		delete from tab_system_user where pid=#pid#这是真删，为了数据的完整性，业务模块用假删操作！
+	 -->
+	<delete id="deleteMenu" parameterClass="java.util.HashMap">
+    	delete from tab_system_menu  where id='$pid$'
+    </delete>
+	<!-- ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝修改＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝ -->
+	<update id="updateMenu" parameterClass="java.util.HashMap">
+		update tab_system_menu main set main.id=main.id
+		            <isNotEmpty prepend=" , " property="pid">id=#pid#</isNotEmpty>
+		            <isNotEmpty prepend=" , " property="pname">name=#pname#</isNotEmpty>
+		            <isNotEmpty prepend=" , " property="picon">icon=#picon#</isNotEmpty>
+		            <isNotEmpty prepend=" , " property="purl">url=#purl#</isNotEmpty>
+		            <isNotEmpty prepend=" , " property="porderno">orderno=#porderno#</isNotEmpty>
+		            <isNotEmpty prepend=" , " property="pfather">father=#pfather#</isNotEmpty>
+		            <isNotEmpty prepend=" , " property="pismenu">ismenu=#pismenu#</isNotEmpty>
+		            <isNotEmpty prepend=" , " property="ppermissionsflag">permissionsflag=#ppermissionsflag#</isNotEmpty>
+		where id=#pid#  
+	</update>
+	
+	<!-- ==============================其它扩展===================================== -->
+	<!-- 存储过程示例 -->
+	<procedure id="findMenuByID" parameterClass="java.util.HashMap" resultClass="java.util.HashMap" remapResults="true">
+    	<![CDATA[{call pb_get_menu_tree(@userid1:='$userId$')}]]>
+    </procedure>
+
+</sqlMap>

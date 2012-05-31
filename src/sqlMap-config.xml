@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="GBK"?>
+<!DOCTYPE sqlMapConfig      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map Config 2.0//EN"      
+    "./sql-map-config-2.dtd">
+
+<sqlMapConfig>
+	<!-- debug环境下，将其设为false. 正式运行时应设为true,启用缓存 -->
+	<settings cacheModelsEnabled="true" enhancementEnabled="true" useStatementNamespaces="true" maxSessions="64" maxTransactions="15"	maxRequests="128" />
+	<!-- 非常简洁，将用到的sqlMap文件列到这儿就行了 -->
+	<!-- ====================================公共============================== -->
+	<sqlMap resource="/sqlMap-common.xml" />
+	<!-- ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝系统管理＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝ -->
+	<!-- 首页 -->
+	<sqlMap resource="/com/qzgf/application/appsystem/main/sqlmap/sqlmap-main.xml"/>
+    <!-- 日志 -->
+	<sqlMap resource="/com/qzgf/application/appsystem/log/sqlmap/sqlmap-log.xml"/>
+	<!-- 用户 -->
+	<sqlMap resource="/com/qzgf/application/appsystem/user/sqlmap/sqlmap-user.xml"/>
+	<!-- 机构 -->
+	<sqlMap resource="/com/qzgf/application/appsystem/department/sqlmap/sqlmap-department.xml"/>
+	<!-- 角色 -->
+	<sqlMap resource="/com/qzgf/application/appsystem/role/sqlmap/sqlmap-role.xml"/>
+	<!-- 菜单 -->
+	<sqlMap resource="/com/qzgf/application/appsystem/menu/sqlmap/sqlmap-menu.xml"/>
+	<!-- ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝其他模块＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝ -->
+
+</sqlMapConfig>

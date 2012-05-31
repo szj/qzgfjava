@@ -1,0 +1,14 @@
+<!DOCTYPE xwork PUBLIC "-//OpenSymphony Group//XWork 1.0//EN" "http://www.opensymphony.com/xwork/xwork-1.0.dtd">
+<xwork>
+	<package name="user" extends="appsystem" namespace="/appsystem">
+	    <!-- 部门信息 -->
+		<action name="user" class="userAction">
+			<result name="input">/login.jsp</result>
+			<result name="success">/WEB-INF/page/appsystem/user/user.jsp</result>
+			<result name="list">/WEB-INF/page/appsystem/user/user.jsp</result>
+			<result name="listdetail">/WEB-INF/page/appsystem/user/userdetail.jsp</result>
+			<!-- 拦截器处理search封装-->
+			<interceptor-ref name="mapParam" />
+		</action>
+	</package> 
+</xwork>

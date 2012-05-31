@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="gbk"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="User">
+    <!-- ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝查看＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝ -->
+	<!-- 用户信息列表-->
+    <select id="findUser" parameterClass="java.util.HashMap" resultClass="java.util.HashMap"  remapResults="true">
+       select * from tab_system_user main where main.state  &lt;&gt; 0 
+            <isNotEmpty prepend=" and " property="pid">main.id='$pid$'</isNotEmpty>
+            <isNotEmpty prepend=" and " property="pusername">main.username='$pusername$'</isNotEmpty>
+            <isNotEmpty prepend=" and " property="pnickname">main.nickname='$pnickname$'</isNotEmpty>
+            <isNotEmpty prepend=" and " property="ptel">main.tel='$ptel$'</isNotEmpty>
+            <isNotEmpty prepend=" and " property="pemail">main.email='$pemail$'</isNotEmpty>
+            <isNotEmpty prepend=" and " property="ppassword">main.password='$ppassword$'</isNotEmpty>
+            <isNotEmpty prepend=" and " property="pdepartmentid">main.departmentid='$pdepartmentid$'</isNotEmpty>
+            <isNotEmpty prepend=" and " property="pareaid">main.areaid='$pareaid$'</isNotEmpty>
+            <isNotEmpty prepend=" and " property="premark">main.remark='$premark$'</isNotEmpty>
+            <isNotEmpty prepend=" and " property="pcreateman">main.createman='$pcreateman$'</isNotEmpty>
+            <isNotEmpty prepend=" and " property="pcreatedate">main.createdate='$pcreatedate$'</isNotEmpty>
+            <isNotEmpty prepend=" and " property="pstate">main.state='$pstate$'</isNotEmpty>
+       <isNotEmpty prepend=" and  " property="WHERE">
+	       $WHERE$ 
+	   </isNotEmpty>
+       <isNotEmpty prepend=" order by  " property="ORDERBY">
+	       $ORDERBY$ 
+	   </isNotEmpty>
+	   <isNotEmpty prepend=" " property="START">
+	         limit $START$ , $END$
+	   </isNotEmpty>
+	</select> 
+	<!-- 用户信息总数-->
+	<select id="findUserCount" parameterClass="java.util.HashMap" resultClass="java.lang.Integer" remapResults="true">
+        select count(*) from tab_system_user main where main.state  &lt;&gt; 0 
+            <isNotEmpty prepend=" and " property="pid">main.id='$pid$'</isNotEmpty>
+            <isNotEmpty prepend=" and " property="pusername">main.username='$pusername$'</isNotEmpty>
+            <isNotEmpty prepend=" and " property="pnickname">main.nickname='$pnickname$'</isNotEmpty>
+            <isNotEmpty prepend=" and " property="ptel">main.tel='$ptel$'</isNotEmpty>
+            <isNotEmpty prepend=" and " property="pemail">main.email='$pemail$'</isNotEmpty>
+            <isNotEmpty prepend=" and " property="ppassword">main.password='$ppassword$'</isNotEmpty>
+            <isNotEmpty prepend=" and " property="pdepartmentid">main.departmentid='$pdepartmentid$'</isNotEmpty>
+            <isNotEmpty prepend=" and " property="pareaid">main.areaid='$pareaid$'</isNotEmpty>
+            <isNotEmpty prepend=" and " property="premark">main.remark='$premark$'</isNotEmpty>
+            <isNotEmpty prepend=" and " property="pcreateman">main.createman='$pcreateman$'</isNotEmpty>
+            <isNotEmpty prepend=" and " property="pcreatedate">main.createdate='$pcreatedate$'</isNotEmpty>
+            <isNotEmpty prepend=" and " property="pstate">main.state='$pstate$'</isNotEmpty>
+            <isNotEmpty prepend=" and  " property="WHERE">
+		       $WHERE$ 
+		   </isNotEmpty>
+	</select> 
+	 <!-- ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝增加＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝ -->
+	 <insert id="insertUser"	parameterClass="java.util.HashMap" >
+		insert into tab_system_user
+				(id 
+		            <isNotEmpty prepend=" , " property="pusername">username</isNotEmpty>
+		            <isNotEmpty prepend=" , " property="pnickname">nickname</isNotEmpty>
+		            <isNotEmpty prepend=" , " property="ptel">tel</isNotEmpty>
+		            <isNotEmpty prepend=" , " property="pemail">email</isNotEmpty>
+		            <isNotEmpty prepend=" , " property="ppassword">password</isNotEmpty>
+		            <isNotEmpty prepend=" , " property="pdepartmentid">departmentid</isNotEmpty>
+		            <isNotEmpty prepend=" , " property="pareaid">areaid</isNotEmpty>
+		            <isNotEmpty prepend=" , " property="premark">remark</isNotEmpty>
+		            <isNotEmpty prepend=" , " property="pcreateman">createman</isNotEmpty>
+		            <isNotEmpty prepend=" , " property="pcreatedate">createdate</isNotEmpty> 
+				,state)
+				 values 
+				(
+				<isNotEmpty prepend=" " property="pid">'$pid$'</isNotEmpty>
+				<isEmpty prepend=" " property="pid">seqformat(@in_seq_name:='tab_system_user')	</isEmpty>
+		            <isNotEmpty prepend=" , " property="pusername">'$pusername$'</isNotEmpty>
+		            <isNotEmpty prepend=" , " property="pnickname">'$pnickname$'</isNotEmpty>
+		            <isNotEmpty prepend=" , " property="ptel">'$ptel$'</isNotEmpty>
+		            <isNotEmpty prepend=" , " property="pemail">'$pemail$'</isNotEmpty>
+		            <isNotEmpty prepend=" , " property="ppassword">'$ppassword$'</isNotEmpty>
+		            <isNotEmpty prepend=" , " property="pdepartmentid">'$pdepartmentid$'</isNotEmpty>
+		            <isNotEmpty prepend=" , " property="pareaid">'$pareaid$'</isNotEmpty>
+		            <isNotEmpty prepend=" , " property="premark">'$premark$'</isNotEmpty>
+		            <isNotEmpty prepend=" , " property="pcreateman">'$pcreateman$'</isNotEmpty>
+		            <isNotEmpty prepend=" , " property="pcreatedate">'$pcreatedate$'</isNotEmpty> 
+		        ,1)	   		   		
+    </insert>
+	 
+	<!-- ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝删除＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
+		delete from tab_system_user where pid=#pid#这是真删，为了数据的完整性，业务模块用假删操作！
+	 -->
+	<delete id="deleteUser" parameterClass="java.util.HashMap">
+    	update tab_system_user set State=0
+    	where id=#pid#
+    </delete>
+	<!-- ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝修改＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝ -->
+	<update id="updateUser" parameterClass="java.util.HashMap">
+		update tab_system_user main set main.id=main.id 
+		            <isNotEmpty prepend=" , " property="pusername">username=#pusername#</isNotEmpty>
+		            <isNotEmpty prepend=" , " property="pnickname">nickname=#pnickname#</isNotEmpty>
+		            <isNotEmpty prepend=" , " property="ptel">tel=#ptel#</isNotEmpty>
+		            <isNotEmpty prepend=" , " property="pemail">email=#pemail#</isNotEmpty>
+		            <isNotEmpty prepend=" , " property="ppassword">password=#ppassword#</isNotEmpty>
+		            <isNotEmpty prepend=" , " property="pdepartmentid">departmentid=#pdepartmentid#</isNotEmpty>
+		            <isNotEmpty prepend=" , " property="pareaid">areaid=#pareaid#</isNotEmpty>
+		            <isNotEmpty prepend=" , " property="premark">remark=#premark#</isNotEmpty>
+		            <isNotEmpty prepend=" , " property="pcreateman">createman=#pcreateman#</isNotEmpty>
+		            <isNotEmpty prepend=" , " property="pcreatedate">createdate=#pcreatedate#</isNotEmpty>
+		            <isNotEmpty prepend=" , " property="pstate">state=#pstate#</isNotEmpty>
+		where id=#pid# and main.state &lt;&gt; 0 
+	</update>
+	
+	<!-- ==============================其它扩展===================================== -->
+	<!-- 存储过程示例 -->
+	<procedure id="findMenuByUserID" parameterClass="java.util.HashMap" resultClass="java.util.HashMap" remapResults="true">
+    	<![CDATA[{call pb_get_menu_tree(@userid1:='$userId$')}]]>
+    </procedure>
+</sqlMap>

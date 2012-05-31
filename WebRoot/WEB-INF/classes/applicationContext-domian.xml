@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd">
+
+	<bean id="baseSqlMapDAO" class="com.qzgf.core.dao.BaseSqlMapDAOImpl" scope="prototype">
+		<description>数据库基础操作工具包</description>
+		<property name="sqlMapClient">
+			<ref bean="sqlMapClient" />
+		</property>
+	</bean>
+	
+	<aop:aspectj-autoproxy proxy-target-class="true"/>
+	<!-- 启用AspectJ注解支持
+    <aop:aspectj-autoproxy/>
+	 -->
+	<!--
+	
+	<aop:before pointcut-ref="mycut" method="doAccessCheck"/>
+    <aop:after-returning pointcut-ref="mycut" method="doReturnCheck "/>
+    <aop:after-throwing pointcut-ref="mycut" method="doExceptionAction"/>
+    <aop:after pointcut-ref="mycut" method=“doReleaseAction"/>
+    <aop:around pointcut-ref="mycut" method="doBasicProfiling"/>
+    Add||Edit||Delete
+	  -->  
+		<aop:config>
+        <aop:aspect id="LoggingAop" ref="LoggingAspect">
+             <aop:pointcut id="logaop" expression="execution(* com.qzgf.application.*.*.action.*.Add(..)) 
+             or execution(* com.qzgf.application.*.*.action.*.Edit(..))
+             or execution(* com.qzgf.application.*.*.action.*.Delete(..))
+             "/>
+             <aop:before pointcut-ref="logaop" method="before"/>
+             <aop:after-returning pointcut-ref="logaop" method="after" returning="result"/>
+          </aop:aspect>
+    	</aop:config>
+  
+     
+    <!-- 注册日志切面 -->
+    <bean id="LoggingAspect" class="com.qzgf.core.interceptor.LoggingAspect">
+    	<property name="baseSqlMapDAO">
+			<ref bean="baseSqlMapDAO" />
+		</property>
+    </bean>
+
+	<!-- =============================系统管理========================================= --> 
+	<!-- 首页 -->
+	<bean id="mainFacade" class="com.qzgf.application.appsystem.main.domain.MainFacadeImpl">
+		<description>首页模式Facade</description>
+		<property name="baseSqlMapDAO" ref="baseSqlMapDAO" />
+	</bean>
+	<!-- 用户 -->
+	<bean id="userFacade" class="com.qzgf.application.appsystem.user.domain.UserFacadeImpl">
+		<description>用户模式Facade</description>
+		<property name="baseSqlMapDAO" ref="baseSqlMapDAO" />
+	</bean>
+	<!-- 机构 -->
+	<bean id="departmentFacade" class="com.qzgf.application.appsystem.department.domain.DepartmentFacadeImpl">
+		<description>机构模式Facade</description>
+		<property name="baseSqlMapDAO" ref="baseSqlMapDAO" />
+	</bean>
+	<!-- 日志 -->
+	<bean id="logFacade" class="com.qzgf.application.appsystem.log.domain.LogFacadeImpl">
+		<description>日志模式Facade</description>
+		<property name="baseSqlMapDAO" ref="baseSqlMapDAO" />
+	</bean>
+	<!-- 角色 -->
+	<bean id="roleFacade" class="com.qzgf.application.appsystem.role.domain.RoleFacadeImpl">
+		<description>角色模式Facade</description>
+		<property name="baseSqlMapDAO" ref="baseSqlMapDAO" />
+	</bean>
+	<!-- 菜单 -->
+	<bean id="menuFacade" class="com.qzgf.application.appsystem.menu.domain.MenuFacadeImpl">
+		<description>菜单模式Facade</description>
+		<property name="baseSqlMapDAO" ref="baseSqlMapDAO" />
+	</bean>
+	<!-- =============================其他模块========================================= -->
+</beans>
