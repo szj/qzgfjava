@@ -14,17 +14,20 @@
     <script type="text/javascript"> 
         var config = {"Form":{ 
          fields : [
-         {name:"id",type:"hidden"},{display:"用户名",name:"username",newline:true,labelWidth:100,width:220,space:30,type:"text",group:"基本信息",groupicon:"../lib/icons/32X32/communication.gif",validate : {required:true,username:true,minlength:4,maxlength:25,remote:'<%=path%>/user!Exist.do?r='+Math.random(),messages:{required:'请输入用户名',remote:'用户名已经存在!'}}  
+         {name:"id",type:"hidden"},{display:"用户名",name:"username",newline:true,labelWidth:100,width:220,space:30,type:"text",group:"基本信息",groupicon:"../lib/icons/32X32/communication.gif",validate : {required:true,minlength:1,maxlength:25,
+         remote:{url:'<%=path%>/appsystem/user!Exist.do?r='+Math.random(),type:"post",cache:false,dataType:"json",
+         data:{ "search.pusername": function() {return $("#username").val();}}},messages:{required:'请输入用户名',remote:'用户名已经存在!'}}  
          },
-         {display:"部门",name:"departmentid",newline:false,labelWidth:100,width:220,space:30,type:"select",comboboxName:"DepartmentDeptName",options:{tree:{
-            url :'../handler/tree.ashx?view=CF_Department&idfield=DeptID&textfield=DeptName&pidfield=DeptParentID',
-            checkbox:false,
+         {display:"机构",name:"departmentid",newline:false,labelWidth:100,width:220,space:30,type:"select",comboboxName:"departmentname",options:{tree:{
+            url :'<%=path%>/appsystem/user!Department.do?r='+Math.random(),
+            checkbox:false,parentIDFieldName:'departfatherid',
             nodeWidth :220
-        },valueFieldID:"departmentid",valueField:"DeptID"}},
+        },valueFieldID:"departmentid",valueField:"departid",treeLeafOnly:false}},
          {display:"密码",name:"password",newline:true,labelWidth:100,width:220,space:30,type:"password",validate:{maxlength:50,required:true,messages:{required:'请输入密码'}}},
          {display:"确认密码",name:"password2",newline:false,labelWidth:100,width:220,space:30,type:"password",validate:{maxlength:50,required:true,equalTo:'#password',messages:{required:'请输入密码',equalTo:'两次密码输入不一致'}}},
          {display:"真实姓名",name:"nickname",newline:true,labelWidth:100,width:220,space:30,type:"text",validate:{required:true,minlength:1,maxlength:50,messages:{required:'请输入姓名',maxlength:'你的名字有这么长嘛？'}}},
-         
+         {display:"角色",name:"roleids",newline:true,labelWidth:100,width:220,space:30,type:"select",
+         comboboxName:"rolenames",options:{valueFieldID:"roleids",url:"<%=path%>/appsystem/role!RoleSelect.do?r="+Math.random(),isMultiSelect:true,split:','}}, 
          {display:"电话",name:"tel",newline:true,labelWidth:100,width:220,space:30,type:"text",validate:{maxlength:255},group:"其他信息",groupicon:"../lib/icons/32X32/communication.gif"},
          {display:"电子邮件",name:"email",newline:false,labelWidth:100,width:220,space:30,type:"text",validate:{maxlength:50}},
          {display:"备注",name:"remark",newline:true,labelWidth:100,width:520,space:30,type:"textarea"}]

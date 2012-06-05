@@ -117,7 +117,8 @@
             {
                 g.valueField = $("#" + p.valueFieldID + ":input");
                 if (g.valueField.length == 0) g.valueField = $('<input type="hidden"/>');
-                g.valueField[0].id = g.valueField[0].name = p.valueFieldID;
+                g.valueField[0].id =  p.valueFieldID;
+                g.valueField[0].name ="searchp."+p.valueFieldID;
             }
             else
             {

@@ -16,12 +16,12 @@
          fields : [
          {name:"id",type:"hidden"},{display:"部门",name:"departname",newline:true,labelWidth:100,width:220,space:30,type:"text",group:"基本信息",groupicon:"../lib/icons/32X32/communication.gif",validate:{maxlength:50,required:true,messages:{required:'请输入名称'}}  
          },
-         {display:"上级部门",name:"departmentid",newline:false,labelWidth:100,width:220,space:30,type:"select",comboboxName:"DepartmentDeptName",options:{tree:{
-            url :'../handler/tree.ashx?view=CF_Department&idfield=DeptID&textfield=DeptName&pidfield=DeptParentID',
-            checkbox:false,
+         {display:"上级部门",name:"father",newline:false,labelWidth:100,width:220,space:30,type:"select",comboboxName:"fathername",options:{tree:{
+            url :'<%=path%>/appsystem/user!Department.do?r='+Math.random(),
+            checkbox:false,parentIDFieldName:'departfatherid',
             nodeWidth :220
-        },valueFieldID:"departmentid",valueField:"DeptID"}},
-         {display:"负责人",name:"charger",newline:true,labelWidth:100,width:220,space:30,type:"password",validate:{maxlength:50,required:true,messages:{required:'请输入密码'}}},
+        },valueFieldID:"father",valueField:"departid"}},
+         {display:"负责人",name:"charger",newline:true,labelWidth:100,width:220,space:30,validate:{maxlength:50}},
          {display:"地址",name:"address",newline:true,labelWidth:100,width:520,space:30,type:"textarea"},
          {display:"电话",name:"tel",newline:true,labelWidth:100,width:220,space:30,type:"text",validate:{maxlength:255},group:"其他信息",groupicon:"../lib/icons/32X32/communication.gif"},
          {display:"排序号",name:"orderno",newline:false,labelWidth:100,width:220,space:30,type:"text",validate:{maxlength:50}},

@@ -8,6 +8,8 @@
     <title>用户 明细</title>
     <script src="<%=path%>/lib/jquery.form.js" type="text/javascript"></script>
     <script src="<%=path%>/lib/js/validator.js" type="text/javascript"></script>
+    <script src="<%=path%>/lib/js/iconselector.js" type="text/javascript"></script>
+    <script src="<%=path%>/lib/ligerUI/js/plugins/ligerTextBox.js" type="text/javascript"></script> 
 </head>
 <body style="padding-bottom:31px;">
     <form id="mainform" method="post"></form> 
@@ -16,15 +18,42 @@
          fields : [
          {name:"id",type:"hidden"},
          {display:"菜单",name:"name",newline:true,labelWidth:100,width:220,space:30,type:"text",group:"基本信息",groupicon:"../lib/icons/32X32/communication.gif",validate:{maxlength:50,required:true,messages:{required:'请输入密码'}} },
-         {display:"父菜单",name:"father",newline:false,labelWidth:100,width:220,space:30,type:"select",comboboxName:"DepartmentDeptName",options:{tree:{
+         {display:"父菜单",name:"father",newline:false,labelWidth:100,width:220,space:30,type:"select",comboboxName:"fathername",options:{tree:{
             url :'/main!GetTreeJson.do?rnd='+Math.random(),
             checkbox:false,
             nodeWidth :220
-        },valueFieldID:"id",valueField:"father"}},
-         {display:"图标",name:"icon",newline:true,labelWidth:100,width:220,space:30,type:"password",validate:{maxlength:50,required:true,messages:{required:'请输入密码'}}},
-         {display:"链接url",name:"url",newline:true,labelWidth:100,width:220,space:30,type:"text",validate:{required:true,minlength:1,maxlength:50,messages:{required:'请输入姓名',maxlength:'你的名字有这么长嘛？'}}},
+        },valueFieldID:"father",valueField:"id"}},
+         //{display:"图标",name:"icon",newline:true,labelWidth:100,width:220,space:30,validate:{maxlength:50,messages:{required:'请输入图标'}}},
+          { display: '图标', name: 'icon', align: 'left', newline:true,labelWidth:100,width:220,space:30,type: 'select',
+              	options:{ 
+              	onBeforeSelect: function (newvalue)
+                {
+                    alert('要选择的是' + newvalue);
+                    return confirm('onBeforeSelect事件可以阻止选择，是否继续');
+                },
+                
+  							onBeforeOpen: function ()
+                            {
+                            	alert("hello");
+                               // currentComboBox = this;
+                                f_openIconsWin();
+                                return false;
+                            },
+                            render: function ()
+                            {
+                                alert("hello1");
+                                return '1';
+                            }
+                }
+         },
+                
+         {display:"链接url",name:"url",newline:true,labelWidth:100,width:220,space:30,type:"text",validate:{required:true,minlength:1,maxlength:50,messages:{required:'请输入链接url',maxlength:'链接url有这么长嘛？'}}},
          {display:"排序号",name:"orderno",newline:true,labelWidth:100,width:220,space:30,type:"text",validate:{maxlength:255}},
-         {display:"是否菜单",name:"ismenu",newline:false,labelWidth:100,width:220,space:30,type:"text",validate:{maxlength:50}}
+         {display:"是否菜单",name:"ismenu",newline:false,labelWidth:100,width:220,space:30,type:"select",
+         	comboboxName:"ismenuname",options:{data:[
+                    { text: '是', id: '1' },
+                    { text: '否', id: '0' }
+            ],valueFieldID:"ismenu",valueField:"id"}}
          ]
  }};
 
@@ -73,7 +102,7 @@
             mainform.attr("action", actionRoot + "Add.do");
         }
         else { 
-            LG.loadForm(mainform, { type: 'userAction', method: 'GetUser', data: { "search.pid": "<s:property value='%{search.pid}' />"} },f_loaded);
+            LG.loadForm(mainform, { type: 'menuAction', method: 'GetMenu', data: { "search.pid": "<s:property value='%{search.pid}' />"} },f_loaded);
         }  
 
         

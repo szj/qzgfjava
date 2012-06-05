@@ -7,7 +7,9 @@
     <!-- ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝查看＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝ -->
 	<!-- 用户信息列表-->
     <select id="findUser" parameterClass="java.util.HashMap" resultClass="java.util.HashMap"  remapResults="true">
-       select * from tab_system_user main where main.state  &lt;&gt; 0 
+	        select main.*,other.departname departmentname from tab_system_user main 
+			left  outer join tab_system_department other on main.departmentid=other.id
+       		where main.state  &lt;&gt; 0 
             <isNotEmpty prepend=" and " property="pid">main.id='$pid$'</isNotEmpty>
             <isNotEmpty prepend=" and " property="pusername">main.username='$pusername$'</isNotEmpty>
             <isNotEmpty prepend=" and " property="pnickname">main.nickname='$pnickname$'</isNotEmpty>
@@ -104,8 +106,46 @@
 		            <isNotEmpty prepend=" , " property="pstate">state=#pstate#</isNotEmpty>
 		where id=#pid# and main.state &lt;&gt; 0 
 	</update>
-	
+	<!-- ==============================业务关连表信息处理===================================== -->
+	 <insert id="insertUserrole"	parameterClass="java.util.HashMap" >
+		insert into tab_system_userrole
+				(id
+		            <isNotEmpty prepend=" , " property="puserid">userid</isNotEmpty>
+		            <isNotEmpty prepend=" , " property="proleid">roleid</isNotEmpty>
+				)
+				 values 
+				(
+					<isNotEmpty prepend=" " property="pid">'$pid$'</isNotEmpty>
+					<isEmpty prepend=" " property="pid">seqformat(@in_seq_name:='tab_system_userrole')	</isEmpty>
+		            <isNotEmpty prepend=" , " property="puserid">'$puserid$'</isNotEmpty>
+		            <isNotEmpty prepend=" , " property="proleid">'$proleid$'</isNotEmpty>
+		        )	   		
+    </insert>
+	 
+	<!-- ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝删除＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
+		delete from tab_system_user where pid=#pid#这是真删，为了数据的完整性，业务模块用假删操作！
+	 -->
+	<delete id="deleteUserrole" parameterClass="java.lang.String">
+    	delete from  tab_system_userrole where userid ='$id$';
+    </delete>
+    <!-- ==================查询用户角色信息=================== -->
+    <select id="findUserrole" parameterClass="java.util.HashMap" resultClass="java.util.HashMap"  remapResults="true">
+       select * from tab_system_userrole main 
+            <isNotEmpty prepend=" where " property="pid">main.userid='$pid$'</isNotEmpty>
+	</select> 
+    
 	<!-- ==============================其它扩展===================================== -->
+	<!-- 用户信息-->
+    <select id="findUserbyName" parameterClass="java.util.HashMap" resultClass="java.util.HashMap" remapResults="true">
+       select * from tab_system_user main where main.state  &lt;&gt; 0 
+       <isNotEmpty prepend=" and " property="pusername">main.username='$pusername$'</isNotEmpty>
+	</select>
+	<!-- 机构信息-->
+    <select id="findDepartment" parameterClass="java.util.HashMap" resultClass="java.util.HashMap" remapResults="true">
+       select main.id id,main.departname text,main.id departid,main.father departfatherid 
+       from tab_system_department main where main.state  &lt;&gt; 0 
+       <isNotEmpty prepend=" and " property="pfather">main.father='$pfather$'</isNotEmpty>
+	</select>
 	<!-- 存储过程示例 -->
 	<procedure id="findMenuByUserID" parameterClass="java.util.HashMap" resultClass="java.util.HashMap" remapResults="true">
     	<![CDATA[{call pb_get_menu_tree(@userid1:='$userId$')}]]>

@@ -21,11 +21,17 @@ public interface UserFacade {
 	public abstract int findUserCount(HashMap map);
 	
 	
-	public abstract int insertUser(HashMap map);
+	public abstract int insertUser(HashMap map,String roleids);
 	
 	public abstract int deleteUser(HashMap map);
 	
-	public abstract int updateUser(HashMap map);
-	//==============================================================
+	public abstract int updateUser(HashMap map,String roleids);
+	//=====================扩展=========================================
+	
+	public abstract boolean findUserbyName(HashMap map);
+	
+	public abstract List findDepartment(HashMap map);
+	
+	public abstract List findUserRole(HashMap map);
 
 }

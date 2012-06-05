@@ -76,14 +76,37 @@ public class UserAction extends BaseAction{
 	//单行记录
 	public String GetUser(HashMap search) {
 		List ls=userFacade.findUser(search);
-		AjaxResult ar=AjaxResult.Success(ls.get(0));
+		HashMap hs=(HashMap)ls.get(0);
+		//用户角色信息
+		String roles="";
+		List rolels=userFacade.findUserRole(search);
+		for(Object roleobj:rolels){
+			HashMap rolehs=(HashMap)roleobj;
+			roles+=(rolehs.get("roleid").toString()+",");
+		}
+		hs.put("roleids", roles);
+		AjaxResult ar=AjaxResult.Success(hs);
 		json = ar.toString();
 		return json;
 	}
 	
 	//验证用户名是否重复
-	public boolean Exist(HashMap search) {
-		return true;
+	public String Exist() {
+		this.json="true";
+		if(userFacade.findUserbyName(search)){
+			json="false";
+		}
+		return this.viewjson;
+	}
+	
+	//机构下拉框
+	public String Department(){
+		this.json="";
+		List ls=userFacade.findDepartment(search);
+		if(ls.size()>0){
+			this.json=JSONSerializer.toJSON(ls).toString();
+		}
+		return this.viewjson;
 	}
 	//删除数据
 	public String Delete(HashMap search){
@@ -104,9 +127,13 @@ public class UserAction extends BaseAction{
 	//编辑数据更新
 	public String Edit(){
 		AjaxResult ar=null;
+		//处理密码
 		String value=Util.hash(search.get("ppassword").toString());
 		search.put("ppassword", value);
-		int i=userFacade.updateUser(search);
+		//处理角色
+		String roleids=search.get("proleids").toString();
+		//处理主表信息
+		int i=userFacade.updateUser(search,roleids);
 		if(i>0){
 			 ar=AjaxResult.Success("成功");
 		}else{
@@ -120,7 +147,10 @@ public class UserAction extends BaseAction{
 		AjaxResult ar=null;
 		String value=Util.hash(search.get("ppassword").toString());
 		search.put("ppassword", value);
-		int i=userFacade.insertUser(search);
+		//处理角色
+		String roleids=search.get("proleids").toString();
+		//处理主表信息
+		int i=userFacade.insertUser(search,roleids);
 		if(i>0){
 			 ar=AjaxResult.Success("成功");
 		}else{

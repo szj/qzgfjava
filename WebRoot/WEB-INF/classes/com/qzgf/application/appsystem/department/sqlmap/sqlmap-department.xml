@@ -7,7 +7,9 @@
     <!-- ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝查看＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝ -->
 	<!-- 用户信息列表-->
     <select id="findDepartment" parameterClass="java.util.HashMap" resultClass="java.util.HashMap"  remapResults="true">
-       select * from tab_system_department main where main.state  &lt;&gt; 0 
+				select main.*,other.departname fathername from tab_system_department main 
+				left outer join tab_system_department other on main.father=other.id
+		       where main.state  &lt;&gt; 0 
             <isNotEmpty prepend=" and " property="pid">main.id='$pid$'</isNotEmpty>
             <isNotEmpty prepend=" and " property="pdepartname">main.departname='$pdepartname$'</isNotEmpty>
             <isNotEmpty prepend=" and " property="pcharger">main.charger='$pcharger$'</isNotEmpty>

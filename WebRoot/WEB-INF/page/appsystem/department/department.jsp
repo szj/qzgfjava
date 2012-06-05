@@ -27,7 +27,7 @@
           { display: "负责人", name: "charger", width: 180, type: "text", align: "left" },
           { display: "电话", name: "tel", width: 180, type: "text", align: "left" }, 
           { display: "地址", name: "address", width: 180, type: "text", align: "left" }, 
-          { display: "上级机构", name: "father", width: 180, type: "text", align: "left" },
+          { display: "上级机构", name: "fathername", width: 180, type: "text", align: "left" },
           { display: "排序号", name: "orderno", width: 180, type: "text", align: "left" },
           { display: "备注", name: "remark", width: 180, type: "textarea", align: "left" }   
           ], dataAction: 'server', pageSize: 20, toolbar: {},

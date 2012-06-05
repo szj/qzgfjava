@@ -1372,12 +1372,14 @@
             {
                 g.valueField = $("#" + p.valueFieldID + ":input");
                 if (g.valueField.length == 0) g.valueField = $('<input type="hidden"/>');
-                g.valueField[0].id = g.valueField[0].name = p.valueFieldID;
+                g.valueField[0].id = p.valueFieldID;
+                g.valueField[0].name ="search.p"+p.valueFieldID;
             }
             else
             {
                 g.valueField = $('<input type="hidden"/>');
-                g.valueField[0].id = g.valueField[0].name = g.textFieldID + "_val";
+                g.valueField[0].id =  g.textFieldID + "_val";
+                g.valueField[0].name ="search.p"+g.textFieldID + "_val";
             }
             if (g.valueField[0].name == undefined) g.valueField[0].name = g.valueField[0].id;
             //开关
@@ -5278,7 +5280,7 @@
             var out = [];
             if (field.comboboxName && field.type == "select")
             {
-                out.push('<input type="hidden" id="' + p.prefixID + name + '" name=search.p' + name + ' />');
+                out.push('<input  type="hidden" id="' + p.prefixID + name + '" name="search.p' + name + '" />');
             }
             if (field.textarea || field.type == "textarea")
             {
@@ -5317,7 +5319,7 @@
             }
             if (field.comboboxName && field.type == "select")
             {
-                out.push('name="' + field.comboboxName + '"');
+                out.push('name=search.p' + field.comboboxName );
                 if (p.appendID)
                 {
                     out.push(' id="' + p.prefixID + field.comboboxName + '" ');
@@ -5325,7 +5327,7 @@
             }
             else
             {
-                out.push('name=search.p' + name + '');
+                out.push('name=search.p' + name);
                 if (p.appendID)
                 {
                     out.push(' id="' + name + '" ');
@@ -8277,7 +8279,8 @@
                     if (this.islast)
                         gridhtmlarr.push('l-grid-row-cell-last ');
                     gridhtmlarr.push('"');
-                    //if (this.columnname) gridhtmlarr.push('columnname="' + this.columnname + '"');
+                    //定位方便
+                    if (this.columnname) gridhtmlarr.push('columnname="' + this.columnname + '"');
                     gridhtmlarr.push(' style = "');
                     gridhtmlarr.push('width:' + colwidth + 'px; ');
                     if (column._hide)

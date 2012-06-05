@@ -24,10 +24,10 @@
       var grid = $("#maingrid").ligerGrid({
           columns: [
           { display: "用户", name: "userid", width: 180, type: "text", align: "left" }, 
-          { display: "操作名称", name: "controllerscode", width: 180, type: "text", align: "left" }, 
-          { display: "控制器名称", name: "opercode", width: 180, type: "text", align: "left" },
-          { display: "操作时间", name: "operdate", width: 180, type: "text", align: "left" }, 
-          { display: "操作结果", name: "operresult", width: 180, type: "text", align: "left" },
+          { display: "操作名称", name: "controllersname", width: 180, type: "text", align: "left" }, 
+          { display: "控制器名称", name: "opername", width: 180, type: "text", align: "left" },
+          { display: "操作时间", name: "operdatestr", width: 180, type: "text", align: "left" }, 
+         // { display: "操作结果", name: "operresult", width: 180, type: "text", align: "left" },
           { display: "操作地址", name: "operip", width: 180, type: "text", align: "left" }  
           ], dataAction: 'server', pageSize: 20, toolbar: {},
           url: '<%=path%>/appsystem/log!Grid.do', sortName: 'id', 

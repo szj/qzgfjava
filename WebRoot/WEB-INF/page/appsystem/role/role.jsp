@@ -20,12 +20,23 @@
   </div>
   <div id="maingrid"></div> 
   <script type="text/javascript">
-      //列表结构
-      var grid = $("#maingrid").ligerGrid({
+          //权限 保存按钮
+        var toolbarOptions = {
+            items: [
+            { text: '权限分配', click: f_right, img: "../lib/icons/silkicons/page_save.png" }
+        ]
+        };
+        
+        function f_right(){
+                  top.f_addTab(null, '权限分配', '<%=path%>/appsystem/role!Right.do');
+        }
+        
+        
+       var grid = $("#maingrid").ligerGrid({
           columns: [
           { display: "名称", name: "rolename", width: 180, type: "text", align: "left" }, 
           { display: "备注", name: "remark", width: 180, type: "text", align: "left" }
-          ], dataAction: 'server', pageSize: 20, toolbar: {},
+          ], dataAction: 'server', pageSize: 20, toolbar: toolbarOptions,
           url: '<%=path%>/appsystem/role!Grid.do', sortName: 'id', 
           width: '98%', height: '100%',heightDiff:-10, checkbox: false
       });

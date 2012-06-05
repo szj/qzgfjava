@@ -27,7 +27,8 @@
           { display: "图标", name: "icon", width: 180, type: "text", align: "left" },
           { display: "键接", name: "url", width: 180, type: "text", align: "left" }, 
           { display: "排序号", name: "orderno", width: 180, type: "text", align: "left" }, 
-          { display: "父菜单", name: "father", width: 180, type: "text", align: "left" }
+          { display: "是否菜单", name: "ismenuname", width: 100, type: "text", align: "left" }, 
+          { display: "父菜单", name: "fathername", width: 180, type: "text", align: "left" }
           ], dataAction: 'server', pageSize: 20, toolbar: {},
           url: '<%=path%>/appsystem/menu!Grid.do', sortName: 'id', 
           width: '98%', height: '100%',heightDiff:-10, checkbox: false

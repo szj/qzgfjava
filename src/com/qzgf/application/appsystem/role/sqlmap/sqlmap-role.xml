@@ -79,8 +79,53 @@
 		            <isNotEmpty prepend=" , " property="pstate">state=#pstate#</isNotEmpty>
 		where id=#pid# and main.state &lt;&gt; 0 
 	</update>
-	
+	<!--  ==============================相关业务扩展=====================================  -->
+	<!-- ===============角色菜单关系================= -->
+		 <insert id="insertRolemenu"	parameterClass="java.util.HashMap" >
+		insert into tab_system_rolemenu
+				(id
+		            <isNotEmpty prepend=" , " property="proleid">roleid</isNotEmpty>
+		            <isNotEmpty prepend=" , " property="pmenuid">menuid</isNotEmpty>
+		            <isNotEmpty prepend=" , " property="poptval">optval</isNotEmpty>
+				)
+				 values 
+				(
+				<isNotEmpty prepend=" " property="pid">'$pid$'</isNotEmpty>
+				<isEmpty prepend=" " property="pid">seqformat(@in_seq_name:='tab_system_rolemenu')	</isEmpty>
+		            <isNotEmpty prepend=" , " property="proleid">'$proleid$'</isNotEmpty>
+		            <isNotEmpty prepend=" , " property="pmenuid">'$pmenuid$'</isNotEmpty>
+		            <isNotEmpty prepend=" , " property="poptval">'$poptval$'</isNotEmpty>
+		        )	   		
+    </insert>
+	 
+	<!-- ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝删除＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
+		delete from tab_system_user where pid=#pid#这是真删，为了数据的完整性，业务模块用假删操作！
+	 -->
+	<delete id="deleteRolemenu" parameterClass="java.util.HashMap">
+    	delete from tab_system_rolemenu where roleid='$proleid$'
+    </delete>
+	<!-- =============角色权限============== -->
+	<select id="findRoleMenu" parameterClass="java.util.HashMap" resultClass="java.util.HashMap"  remapResults="true">
+		select main.id,main.name,main.father,ifnull(other.optval,0) optval from tab_system_menu main
+		left  join 
+		( select * from tab_system_rolemenu 
+		 <isNotEmpty prepend=" where " property="proleid">roleid='$proleid$'</isNotEmpty>
+		)other on main.id=other.menuid
+        where main.ismenu=1
+	</select>
 	<!-- ==============================其它扩展===================================== -->
+	<!-- 角色下拉框 -->
+ 	<select id="findRoleSelect" parameterClass="java.util.HashMap" resultClass="java.util.HashMap"  remapResults="true">
+       select main.id id,main.rolename text,main.id value from tab_system_role main where main.state  &lt;&gt; 0 
+            <isNotEmpty prepend=" and " property="pid">main.id='$pid$'</isNotEmpty>
+            <isNotEmpty prepend=" and " property="prolename">main.rolename='$prolename$'</isNotEmpty>
+            <isNotEmpty prepend=" and " property="pcreateman">main.createman='$pcreateman$'</isNotEmpty>
+            <isNotEmpty prepend=" and " property="premark">main.remark='$premark$'</isNotEmpty>
+            <isNotEmpty prepend=" and " property="pcreatetime">main.createtime='$pcreatetime$'</isNotEmpty>
+            <isNotEmpty prepend=" and " property="pstate">main.state='$pstate$'</isNotEmpty>
+	</select> 	
+	
+	
 	<!-- 存储过程示例 -->
 	<procedure id="findRoleByID" parameterClass="java.util.HashMap" resultClass="java.util.HashMap" remapResults="true">
     	<![CDATA[{call pb_get_menu_tree(@userid1:='$userId$')}]]>

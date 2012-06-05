@@ -4,7 +4,7 @@
 * http://ligerui.com
 *  
 * Author daomi 2012 [ gd_star@163.com ] 
-* 
+*  $.extend(options, tmp);
 */
 
 (function ($)

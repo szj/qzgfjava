@@ -7,7 +7,10 @@
 	    <!-- ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝查看＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝ -->
 	<!-- 用户信息列表-->
     <select id="findMenu" parameterClass="java.util.HashMap" resultClass="java.util.HashMap"  remapResults="true">
-       select * from tab_system_menu main where 1=1
+			  select main.*,other.name fathername,
+			  case main.ismenu when 0 then '否' when 1 then '是' else '' end ismenuname from tab_system_menu main 
+			  left join tab_system_menu other on main.father=other.id     
+		      where 1=1
             <isNotEmpty prepend=" and " property="pid">main.id='$pid$'</isNotEmpty>
             <isNotEmpty prepend=" and " property="pname">main.name='$pname$'</isNotEmpty>
             <isNotEmpty prepend=" and " property="picon">main.icon='$picon$'</isNotEmpty>

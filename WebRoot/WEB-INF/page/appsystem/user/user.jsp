@@ -28,7 +28,7 @@
           { display: "昵称", name: "nickname", width: 180, type: "text", align: "left" },
           { display: "电话", name: "tel", width: 180, type: "text", align: "left" }, 
           { display: "电子邮件", name: "email", width: 180, type: "text", align: "left" }, 
-          { display: "机构", name: "departmentid", width: 180, type: "text", align: "left" },
+          { display: "机构", name: "departmentname", width: 180, type: "text", align: "left" },
           { display: "区域", name: "areaid", width: 180, type: "text", align: "left" },
           { display: "备注", name: "remark", width: 180, type: "textarea", align: "left" }   
           ], dataAction: 'server', pageSize: 20, toolbar: {},

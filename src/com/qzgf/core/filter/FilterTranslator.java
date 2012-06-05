@@ -385,8 +385,9 @@ public class FilterTranslator {
 		//专用mssql
 		//String teststr="{\"op\":\"and\",\"rules\":[{\"op\":\"equal\",\"field\":\"search.pusername\",\"value\":\"123132\",\"type\":\"string\"}]}";
 		
-		String teststr="{\"groups\":[{\"op\":\"and\"}],\"rules\":[{\"field\":\"username\",\"op\":\"like\",\"value\":\"123\",\"type\":\"string\"},{\"field\":\"username\",\"op\":\"notequal\",\"value\":\"1234\",\"type\":\"string\"},{\"field\":\"nickname\",\"op\":\"equal\",\"value\":\"5656\",\"type\":\"string\"}],\"op\":\"and\"}";
+		//String teststr="{\"groups\":[{\"op\":\"and\"}],\"rules\":[{\"field\":\"username\",\"op\":\"like\",\"value\":\"123\",\"type\":\"string\"},{\"field\":\"username\",\"op\":\"notequal\",\"value\":\"1234\",\"type\":\"string\"},{\"field\":\"nickname\",\"op\":\"equal\",\"value\":\"5656\",\"type\":\"string\"}],\"op\":\"and\"}";
 
+		String teststr="{\"groups\":[{\"rules\":[{\"field\":\"username\",\"op\":\"equal\",\"value\":\"1\",\"type\":\"string\"}],\"op\":\"or\"}],\"rules\":[{\"field\":\"username\",\"op\":\"equal\",\"value\":\"2\",\"type\":\"string\"}],\"op\":\"and\"}";
 		FilterTranslator ft= new FilterTranslator();
 		ft.Translate(teststr);
 		
