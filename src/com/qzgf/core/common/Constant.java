@@ -1,10 +1,30 @@
 package com.qzgf.core.common;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
 /**
  * 系统常量
  * @author lsr
  *
  */
 public class Constant{
+	//用户默认不需要验证的权限
+	public static List Allower_Url=new ArrayList();
+	static {
+		Allower_Url.add("/main.do");//首页不验证
+	}
+	//用户默认需要验证的方法
+	public static HashMap<String, Integer> Allower_Method = new HashMap<String,Integer>();
+    static 
+    { 
+    	Allower_Method.put("View",1); 
+    	Allower_Method.put("Add",2); 
+    	Allower_Method.put("Modify",4); 
+    	Allower_Method.put("Delete",8); 
+    }
+	
 	public static String ROLE_LIST_SESSION = "loginRoles";
 	public static String LOGIN_SESSION_NAME="UserInfo";//存储用户信息的HashMap
 	public static String CONTEXT_SESSION_NAME = "CONTEXT_SESSION_NAME";

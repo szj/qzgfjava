@@ -154,10 +154,13 @@ public class RoleAction extends BaseAction {
 			HashMap hs = (HashMap) JSONObject.toBean(jsonArr.getJSONObject(i),
 					HashMap.class);
 			HashMap rs = new HashMap();
-			rs.put("proleid", roleid);
-			rs.put("pmenuid", hs.get("id").toString());
-			rs.put("poptval", hs.get("optval").toString());
-			roleFacade.insertRoleMenu(rs);
+			String optval=hs.get("optval").toString();
+			if(!optval.equals("0")){
+				rs.put("proleid", roleid);
+				rs.put("pmenuid", hs.get("id").toString());
+				rs.put("poptval", hs.get("optval").toString());
+				roleFacade.insertRoleMenu(rs);
+			}
 		}
 		AjaxResult ar = AjaxResult.Success("成功");
 		json = ar.toString();

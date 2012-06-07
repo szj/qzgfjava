@@ -48,10 +48,12 @@ public class MainFacadeImpl implements MainFacade {
 	}
 	
 
-	public List findSysButton(String userid){
+	public List findSysButton(String optval,String menuno){
 		Map map=new HashMap();
 		map.put("pismenu", 3);
-		List menuList = baseSqlMapDAO.queryForList("Main.findMenu", map);
+		map.put("poptval", optval);
+		map.put("pfather", menuno);
+		List menuList = baseSqlMapDAO.queryForList("Main.findButton", map);
 		return menuList;
 	}
 	
@@ -182,7 +184,26 @@ public class MainFacadeImpl implements MainFacade {
 		int result=baseSqlMapDAO.update("Main.updateUserPwd", map);
 		return result;
 	}
-	
+	/**
+	 * Purpose      : 菜单权限
+	 * @param map
+	 * @return 
+	 */
+	@Override
+	public List findMenuPermission(HashMap map) { 
+		return baseSqlMapDAO.queryForList("Main.findMenuPermission", map);
+	}
+
+	/**
+	 * Purpose      : 字段权限
+	 * @param map
+	 * @return 
+	 */
+	@Override
+	public List findMenufieldPermission(HashMap map) { 
+		return baseSqlMapDAO.queryForList("Main.findMenufieldPermission", map);
+	}
+
  
 	//=============================常量设置=================================
 	
@@ -193,6 +214,7 @@ public class MainFacadeImpl implements MainFacade {
 	public void setBaseSqlMapDAO(BaseSqlMapDAO baseSqlMapDAO) {
 		this.baseSqlMapDAO = baseSqlMapDAO;
 	}
+
 
 
 }

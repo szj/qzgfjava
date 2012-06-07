@@ -417,15 +417,15 @@
 		LG.validator = form.validate(options);
 		return LG.validator;
 	};
-	/*
+	 
     LG.loadToolbar = function (grid, toolbarBtnItemClick)
     {
         var MenuNo = LG.getPageMenuNo();
         LG.ajax({
             loading: '正在加载工具条中...',
-            type: 'AjaxSystem',
-            method: 'GetMyButtons',
-            data: { HttpContext: true, MenuNo: MenuNo },
+            type: 'mainAction',
+            method: 'GetButtonJson',
+            data: { "search.pid" : MenuNo },
             success: function (data)
             {
                 if (!grid.toolbarManager) return;
@@ -433,6 +433,10 @@
                 var items = [];
                 for (var i = 0, l = data.length; i < l; i++)
                 {
+                		var o = data[i];
+						items[items.length] = {click:toolbarBtnItemClick, text:o.name, img:"/" + o.icon, id:o.url};
+						items[items.length] = {line:true};
+                	/*
                     var o = data[i];
                     items[items.length] = {
                         click: toolbarBtnItemClick,
@@ -441,12 +445,15 @@
                         id: o.BtnNo
                     };
                     items[items.length] = { line: true };
+                    */
                 }
                 grid.toolbarManager.set('items', items);
             }
         });
     };
-	*/
+	 
+	
+	/*
 	LG.loadToolbar = function (grid, toolbarBtnItemClick) {
 		var MenuNo = LG.getPageMenuNo();
 		var url = '/main!GetButtonJson.do';
@@ -483,7 +490,7 @@
 			}
 		}});
 	};
-
+	*/
 
     //关闭Tab项,如果tabid不指定，那么关闭当前显示的
 	LG.closeCurrentTab = function (tabid) {

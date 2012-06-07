@@ -180,3 +180,21 @@ WHERE=( search.pusername  =  'ggg')
  {"id":"201204","name":"机构管理","optval":"0","father":"201201"},
  {"id":"201205","name":"菜单管理","optval":"0","father":"201201"},
  {"id":"201206","name":"日志管理","optval":"0","father":"201201"}]}]"
+ 
+ json= "{"message":"","data":[{"id":"2012001","icon":"lib/icons/silkicons/
+ add.png","name":"新
+ 增","orderno":"2","ismenu":"3","url":"add","father":"0","permissionsflag":" 
+ "},{"id":"2012002","icon":"lib/icons/silkicons/
+ application_edit.png","name":"修
+ 改","orderno":"4","ismenu":"3","url":"modify","father":"0","permissionsfla
+ g":" "},{"id":"2012003","icon":"lib/icons/silkicons/delete.png","name":"删
+ 除","orderno":"8","ismenu":"3","url":"delete","father":"0","permissionsflag
+ ":" "},{"id":"2012004","icon":"lib/icons/silkicons/
+ application_view_detail.png","name":"查
+ 看","orderno":"1","ismenu":"3","url":"view","father":"0","permissionsflag":"
+ "}],"iserror":false}"
+ 
+ {MenuNo=[Ljava.lang.String;@11dda2d}
+ {search.pid=[Ljava.lang.String;@1a119b3}
+ 
+ /appsystem/role!Listdetail.do

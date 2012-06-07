@@ -8,7 +8,6 @@
     <title>用户</title> 
 </head>
 <body style="padding:10px;height:100%; text-align:center;">
-  <input type="hidden" id="MenuNo" value="MemberManageUser" />
   <div id="mainsearch" style=" width:98%">
     <div class="searchtitle">
         <span>搜索</span><img src="<%=path%>/lib/icons/32X32/searchtool.gif" />

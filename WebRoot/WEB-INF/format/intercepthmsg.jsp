@@ -5,10 +5,10 @@
 	String path = request.getContextPath();
 %>
 <script type="text/javascript">
-	  //var msg='<s:property value="%{interceptError}" escape="false"/>';
+	  var msg='<s:property value="%{interceptError}" escape="false"/>';
 	  //var isSure = confirm('页面Session过期，是否转到登陆页?');if(isSure)
-      jQuery.ligerDialog.confirm('页面Session过期，是否转到登陆页?',function (confirm) {
-           if(confirm) {
+      jQuery.ligerDialog.confirm(msg,function (confirm) {
+           if(confirm && msg=="页面Session过期，是否转到登陆页?") {
                if(parent.window==this){
                		location.href = '<%=path%>/login.do';
                }else{

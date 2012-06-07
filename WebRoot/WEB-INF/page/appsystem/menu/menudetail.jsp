@@ -35,7 +35,7 @@
   							onBeforeOpen: function ()
                             {
                             	alert("hello");
-                               // currentComboBox = this;
+                                //currentComboBox = this;
                                 f_openIconsWin();
                                 return false;
                             },
@@ -124,8 +124,8 @@
         {
             LG.submitForm(mainform, function (data) {
                 var win = parent || window;
-                if (data.IsError) {  
-                    win.LG.showError('错误:' + data.Message);
+                if (data.iserror) {  
+                    win.LG.showError('错误:' + data.message);
                 }
                 else { 
                     win.LG.showSuccess('保存成功', function () { 

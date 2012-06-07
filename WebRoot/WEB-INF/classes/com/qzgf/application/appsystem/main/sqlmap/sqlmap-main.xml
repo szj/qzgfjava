@@ -13,6 +13,17 @@
         <isNotEmpty prepend=" and " property="pid">main.id='$pid$'</isNotEmpty>
 	</select>
 	
+	<!-- 系统默认权限按钮及自定义按钮 -->
+	<select id="findButton" parameterClass="java.util.HashMap" resultClass="java.util.HashMap" remapResults="true">
+        select * from Tab_System_Menu main where main.ismenu &lt;&gt; 0 
+        <isNotEmpty prepend=" and " property="pismenu">main.ismenu='$pismenu$'</isNotEmpty>
+        <isNotEmpty prepend=" and " property="poptval"> <![CDATA[  main.orderno &  $poptval$ ]]> </isNotEmpty>
+        union
+        select * from Tab_System_Menu main where main.ismenu =2  
+        <isNotEmpty prepend=" and " property="pfather">main.father='$pfather$'</isNotEmpty>
+	</select>
+	
+		
 	<!-- 用户信息-->
     <select id="findUserbyName" parameterClass="java.util.HashMap" resultClass="java.util.HashMap" remapResults="true">
        select * from tab_system_user main where main.state  &lt;&gt; 0 
@@ -58,6 +69,32 @@
     	where id=#pid#
     </delete>
 	<!-- ===================用户收藏夹end==========================================-->
+	
+	<!-- ========用户角色菜单============== -->
+	<select id="findMenuPermission" parameterClass="java.util.HashMap" resultClass="java.util.HashMap" remapResults="true">
+	select main1.menuid,main1.optval,sm.id,sm.father,sm.name,sm.icon,sm.url  FROM
+	(
+			select  main.menuid,bit_or(main.optval) optval from tab_system_rolemenu main where main.roleid in
+			(
+			select roleid from tab_system_userrole  other
+			<isNotEmpty prepend="  where " property="puserid">other.userid='$puserid$'</isNotEmpty>
+			)
+			GROUP BY main.menuid
+	) main1 left OUTER join tab_system_menu sm on main1.menuid=sm.id	
+	order by sm.orderno	
+	</select>
+	
+	<select id="findMenufieldPermission" parameterClass="java.util.HashMap" resultClass="java.util.HashMap" remapResults="true">
+		select main1.fieldid,main1.optval,mf.fieldcode,mf.fieldname FROM
+		(
+				select  main.fieldid,bit_or(main.powerval) optval from tab_system_rolefiledpower main where main.roleid in
+				(
+				select roleid from tab_system_userrole  other 
+				<isNotEmpty prepend="  where " property="puserid">other.userid='$puserid$'</isNotEmpty>
+				)
+				GROUP BY main.fieldid
+		) main1 left outer join tab_system_menufield mf on main1.fieldid=mf.id
+	</select>
 	
 	
 	

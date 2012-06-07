@@ -15,7 +15,7 @@
         var config = {"Form":{ 
          fields : [
          {name:"id",type:"hidden"},
-         {display:"角色",name:"rolename",newline:true,labelWidth:100,width:220,space:30,type:"text",validate:{maxlength:255},group:"角色信息",groupicon:"../lib/icons/32X32/communication.gif"},
+         {display:"角色",name:"rolename",newline:true,labelWidth:100,width:220,space:60,type:"text",validate:{maxlength:255},group:"角色信息",groupicon:"../lib/icons/32X32/communication.gif"},
          {display:"备注",name:"remark",newline:true,labelWidth:100,width:520,space:30,type:"textarea"}]
  }};
 

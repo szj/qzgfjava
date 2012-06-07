@@ -19,6 +19,7 @@
 package com.qzgf.application.appsystem.main.action;
 
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -51,6 +52,8 @@ public class MainAction extends BaseAction {
 	private MainFacade mainFacade;
 
 	private static Logger logger = Logger.getLogger(MainAction.class);
+	
+	private String userid="";
 
 	/**
 	 * 
@@ -60,25 +63,20 @@ public class MainAction extends BaseAction {
 	 */
 	public String GetTreeJson() {
 		logger.info("框架树型菜单显示！");
-		List menuList = mainFacade.findMenu("0");
+		List menuList =new ArrayList();
+		userid=this.getUserInfo().currentUser.get("id").toString();
+		if(userid.equals("1")){
+			menuList = mainFacade.findMenu("0");
+		}else{
+			//过滤权限
+			menuList=this.getUserInfo().menuPermission;
+		}
+		
 		StringBuffer menustr = new StringBuffer();
 		menustr.append("[");
 		menustr.append(mainFacade.GetTree(menuList, "0"));
 		menustr.append("]");
 		json = menustr.toString();
-		return viewjson;
-	}
-
-	/**
-	 * 
-	 * Purpose : 系统按钮
-	 * 
-	 * @return
-	 */
-	public String GetButtonJson() {
-		List buttonList = mainFacade.findSysButton("0");
-		AjaxResult ar = AjaxResult.Success(buttonList);
-		json = ar.toString();
 		return viewjson;
 	}
 
@@ -108,6 +106,15 @@ public class MainAction extends BaseAction {
 					HttpServletRequest request = ServletActionContext.getRequest();
 					String clientip=Util.getIpAddr(request);
 					ui.setClientIP(clientip);
+					//菜单权限
+					HashMap map=new HashMap();
+					map.put("puserid", hs.get("id").toString());
+					List menu=mainFacade.findMenuPermission(map);
+					//字段权限
+					List menufield=mainFacade.findMenufieldPermission(map);
+					ui.setMenuPermission(menu);
+					ui.setMenufieldPermission(menufield);
+					
 					result = true;
 				}
 			}
@@ -138,7 +145,15 @@ public class MainAction extends BaseAction {
 			if ((md5pwd).equalsIgnoreCase(hs.get("password").toString())) {
 				// 4.存储用户到session
 				ui.setCurrentUser(hs);
-
+				//菜单权限
+				HashMap map=new HashMap();
+				map.put("puserid", hs.get("id").toString());
+				List menu=mainFacade.findMenuPermission(map);
+				//字段权限
+				List menufield=mainFacade.findMenufieldPermission(map);
+				ui.setMenuPermission(menu);
+				ui.setMenufieldPermission(menufield);
+				
 				result = true;
 			}
 		}
@@ -250,6 +265,45 @@ public class MainAction extends BaseAction {
 		return json;
 	}
 
+	/**
+	 * 
+	 * Purpose : 系统按钮
+	 * 
+	 * @return
+	 */
+	public String GetButtonJson(HashMap search) {
+		 
+		String menuno=search.get("pid").toString();
+		List buttonList = new ArrayList();
+		String optval="0xFFFF";
+		userid=this.getUserInfo().currentUser.get("id").toString();
+		if(userid.equals("1")){
+			optval="0xFFFF";
+		}else{
+			List menu=this.getUserInfo().getMenuPermission();
+			optval=GetOptval(menu,menuno); 
+		}
+		//系统默认菜单及子菜单
+		try{
+		buttonList=mainFacade.findSysButton(optval,menuno);
+		}catch(Exception e){
+			System.out.println(e.toString());
+		}
+		AjaxResult ar = AjaxResult.Success(buttonList);
+		json = ar.toString();
+		return json;
+	}
+	
+	public String GetOptval(List menu,String menuno){
+		for(Object obj:menu){
+			HashMap hs=(HashMap)obj;
+			if(hs.get("id").toString().equals(menuno)){
+				return hs.get("optval").toString();
+			}
+		}
+		return "0x0000";
+	}
+	
 	// ============================页面层信息======================================================
 	/**
 	 * 

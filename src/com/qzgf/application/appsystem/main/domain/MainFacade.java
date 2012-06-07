@@ -22,7 +22,7 @@ public interface MainFacade {
 	//所有菜单信息
 	public abstract List findMenu(String userid);
 	//系统默认按钮
-	public abstract List findSysButton(String userid);
+	public abstract List findSysButton(String optval,String menuno);
 	
 	public HashMap findMenuMsg(HashMap map);
 	
@@ -34,4 +34,11 @@ public interface MainFacade {
 	public abstract int deleteFavorite(HashMap map);
 	
 	public abstract int updateUserPwd(HashMap map);
+	//角色菜单信息
+	public abstract List findMenuPermission(HashMap map);
+	
+	public abstract List findMenufieldPermission(HashMap map);
+	
+	
+	
 }
